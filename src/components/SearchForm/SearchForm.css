@@ -1,0 +1,15 @@
+#searchForm {
+  display: flex;
+}
+#searchForm input {
+  flex:1;
+  margin: 5px;
+}
+
+#searchForm input[type='text'] {
+  height:20px;
+  flex:3;
+  border-radius: 2px;
+  border: 1px solid maroon;
+  margin: 3px !important;
+}

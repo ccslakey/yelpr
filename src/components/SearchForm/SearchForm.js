@@ -1,32 +1,30 @@
-// const makeRequest = (term = "", zipCode = "95758") => {
-//   request
-//     .get("https://api.yelp.com/v3/businesses/search")
-//     .query({
-//       'location': zipCode,
-//       'radius'    : 40000,
-//       term
-//     })
-//     .set('Authorization', `Bearer ${YELP_KEY}`)
-//     .set('accept', 'json')
-//     .buffer()
-//     .end((err, res) => {
-//       if(err){
-//         console.log("err:\n");
-//         console.log(err);
-//       }
-//
-//       if (res) {
-//         let location = new google.maps.LatLng(res.body.region.center.latitude, res.body.region.center.longitude)
-//         let bizCount = res.body.total;
-//
-//         let map = new google.maps.Map(document.getElementById('map'), {
-//           center: location,
-//           zoom: 13
-//         });
-//         console.log(res);
-//
-//         clearResults();
-//         appendResults(res.body.businesses, bizCount, 0, 20, map);
-//       }
-//     });
-// }
+import React, { Component } from 'react';
+import './SearchForm.css';
+
+class SearchForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+  render() {
+
+
+
+    return (
+      <div>
+        <form id="searchForm" onSubmit={(e) => console.log(e)}>
+          <input type="text" placeholder="What are you looking for?" id="termInput"></input>
+          { window.geolocation ? <input type="text" placeholder="Zip Code" id="zipInput"></input> : <div></div>}
+          <input type="submit" value="Submit"></input>
+          <input type="button" value="Clear"></input>
+        </form>
+
+
+      </div>
+    )
+  }
+}
+export default SearchForm;
