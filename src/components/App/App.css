@@ -21,14 +21,17 @@
 
 .appWindow {
   display: flex;
-
+  height: 100%;
 }
 
 .sideBar {
+  display:flex;
   flex:2;
   background: #f1f1f1;
+  height: 100%;
 }
 .main {
-  flex:4;
+  display:flex;
   padding:10px;
+  height: 100%;
 }

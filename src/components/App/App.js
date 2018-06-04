@@ -6,7 +6,6 @@ import request from 'superagent';
 
 require('dotenv').config();
 const GMAPS_API_URL = process.env.GMAPS_API_URL;
-const YELP_KEY = process.env.YELP_API_KEY;
 
 
 class App extends Component {
@@ -46,14 +45,16 @@ class App extends Component {
   };
 
   makeYelpRequest(term = "pizza", zip = "94118", limit = 20, offset = 0) {
+    const APIUrl = "http://localhost:8000/search";
+
     request
-      .get("https://api.yelp.com/v3/businesses/search")
+      .get(APIUrl)
       .query({
         'location': zip,
-        'radius'    : 40000,
-        term
+        term,
+        limit,
+        offset
       })
-      .set('Authorization', `Bearer ${YELP_KEY}`)
       .set('accept', 'json')
       .buffer()
       .end((err, res) => {
@@ -63,17 +64,20 @@ class App extends Component {
         }
 
         if (res) {
-          this.setState({
-            lat: res.body.region.center.latitude,
-            lng: res.body.region.center.longitude,
-            bizCount: res.body.total
-          })
-          // console.log(res);
+          // this.setState({
+          //   lat: res.body.region.center.latitude,
+          //   lng: res.body.region.center.longitude,
+          //   bizCount: res.body.total
+          // })
+          console.log("yay!");
+          console.log(res);
         }
       });
   }
 
   renderMap() {
+    this.makeYelpRequest();
+
     const { lat, lng } = this.state;
     if (lat !== 0 && lng !== 0) {
       return (
@@ -96,20 +100,16 @@ class App extends Component {
   }
 
   render() {
-    this.loadPosition();
+    this.makeYelpRequest();
 
     return(
-      <div className="appWindow">
-
+      <div className="main">
         <div className="sideBar">
 
         </div>
-
-        <div className="main">
-            <SearchForm />
-            {this.renderMap()}
+        <div className="appWindow">
+              <SearchForm />
         </div>
-
       </div>
     )
 
